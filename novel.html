@@ -4,10 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Detail Novel | Titik Fiksi</title>
-  <meta name="description" content="Detail novel di Titik Fiksi." />
-
+  
   <link rel="stylesheet" href="assets/css/themes.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  
+  <style>
+    /* Styling khusus List Bab */
+    .chapter-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text-1);
+      transition: transform 0.2s;
+      border: 1px solid var(--border);
+    }
+    .chapter-item:hover {
+      transform: translateX(4px);
+      background: rgba(255,255,255,0.9);
+    }
+    .chap-num {
+      font-weight: 800;
+      color: var(--brand);
+      font-size: 1.2rem;
+      min-width: 40px;
+    }
+    .chap-info { display: flex; flex-direction: column; }
+    .chap-info span { font-size: 0.85rem; color: var(--muted); }
+  </style>
 </head>
 
 <body>
@@ -15,28 +40,11 @@
     <div class="container">
       <nav class="navbar glass-panel">
         <a class="brand" href="index.html">
-          <div class="brand-logo">
-            <img data-brand="logo" src="assets/images/logo/favicon.png" alt="Logo">
-          </div>
-          <div class="brand-title">
-            <strong>Titik Fiksi</strong>
-            <span>Detail Novel</span>
-          </div>
+          <div class="brand-title"><strong>Titik Fiksi</strong></div>
         </a>
-
         <div class="nav-links">
           <a href="index.html">Beranda</a>
           <a href="works.html" class="active">Novel</a>
-          <a href="writings.html">Tulisan</a>
-          <a href="about.html">Tentang</a>
-          <a href="contact.html">Kontak</a>
-        </div>
-
-        <div class="nav-actions">
-          <button id="theme-toggle" class="theme-btn" type="button">
-            <span class="theme-dot"></span>
-            <span id="theme-label">Pearl Sky</span>
-          </button>
         </div>
       </nav>
     </div>
@@ -44,58 +52,27 @@
 
   <main class="section">
     <div class="container">
-
-      <!-- Error box -->
-      <div id="novel-error" class="glass-card" style="padding:16px; display:none;"></div>
-
-      <!-- Detail Novel -->
-      <section id="novel-detail" class="glass-card" style="padding:18px; display:none;">
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-          <div style="width:240px; max-width:100%;">
-            <img id="novel-cover"
-              src="assets/images/defaults/cover-default.jpg"
-              alt="Cover Novel"
-              style="width:100%; border-radius:18px; border:1px solid rgba(15,23,42,0.12);" />
-          </div>
-
-          <div style="flex:1; min-width:260px;">
-            <h1 id="novel-title" style="margin-top:0; margin-bottom:6px;">Judul Novel</h1>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0;">
-              <span id="novel-genre" class="badge">📌 Genre</span>
-              <span id="novel-status" class="badge">✅ Status</span>
-            </div>
-
-            <p id="novel-synopsis" style="line-height:1.8; color:var(--text-2); margin:0;">
-              Sinopsis akan tampil di sini.
-            </p>
-
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a id="btn-read-first" class="btn btn-primary" href="#">📖 Baca Bab 01</a>
-              <a class="btn btn-soft" href="works.html">⬅️ Kembali</a>
-            </div>
-          </div>
+      
+      <div class="glass-card" style="padding: 20px; display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="flex-shrink: 0;">
+          <img id="work-cover-img" src="assets/images/defaults/cover-default.jpg" 
+               style="width: 140px; border-radius: 12px; box-shadow: var(--shadow-card);" alt="Cover">
         </div>
-      </section>
-
-      <!-- Daftar Bab -->
-      <section class="glass-card" style="padding:18px; margin-top:14px;">
-        <div style="display:flex; justify-content:space-between; gap:10px; align-items:end; flex-wrap:wrap;">
-          <div>
-            <h2 style="margin:0;">📖 Daftar Bab</h2>
-            <p style="margin:6px 0 0; color:var(--muted);">
-              Klik bab untuk mulai membaca.
-            </p>
+        <div style="flex: 1;">
+          <h1 id="work-title" style="margin: 0 0 10px;">Memuat...</h1>
+          <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <span id="work-genre" class="badge">...</span>
+            <span id="work-status" class="badge">...</span>
           </div>
-
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <input id="chapter-search" type="text" placeholder="Cari bab..."
-              style="padding:10px 12px; border-radius:14px; border:1px solid rgba(15,23,42,0.12); background:rgba(255,255,255,0.75);" />
-          </div>
+          <p id="work-synopsis" style="line-height: 1.6; color: var(--text-2);">...</p>
         </div>
+      </div>
 
-        <div id="chapters-list" style="margin-top:14px; display:grid; gap:10px;"></div>
-      </section>
+      <div style="margin-top: 30px;">
+        <h3>📖 Daftar Bab</h3>
+        <div id="chapters-list" style="display: grid; gap: 10px; margin-top: 15px;">
+          </div>
+      </div>
 
     </div>
   </main>
@@ -103,20 +80,12 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner glass-panel">
-        <div>© <span id="yearNow"></span> Titik Fiksi</div>
-        <div style="display:flex; gap:10px;">
-          <a href="tools/generator.html">Generator</a>
-          <a href="admin/">Admin</a>
-        </div>
+        <div>© Titik Fiksi</div>
       </div>
     </div>
   </footer>
 
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/main.js"></script>
-
-  <script>
-    document.getElementById("yearNow").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>

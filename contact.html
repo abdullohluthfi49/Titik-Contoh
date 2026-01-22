@@ -5,8 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kontak | Titik Fiksi</title>
 
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <link rel="stylesheet" href="assets/css/themes.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* ✅ Tombol admin kecil khusus di Kontak (pojok kanan bawah) */
+    .tf-admin-mini {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 99999;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.14);
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #0f172a;
+      font-size: 18px;
+      transition: 160ms ease;
+      user-select: none;
+    }
+
+    .tf-admin-mini:hover {
+      transform: translateY(-2px);
+    }
+  </style>
 </head>
 
 <body>
@@ -55,15 +87,11 @@
         </p>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <a class="btn btn-soft social-ig" href="#" target="_blank">Instagram</a>
-          <a class="btn btn-soft social-fb" href="#" target="_blank">Facebook</a>
-          <a class="btn btn-soft social-tw" href="#" target="_blank">Twitter/X</a>
-          <a class="btn btn-soft social-tt" href="#" target="_blank">TikTok</a>
-          <a class="btn btn-soft social-yt" href="#" target="_blank">YouTube</a>
-        </div>
-
-        <div style="margin-top:16px;">
-          <a class="btn btn-primary" href="admin/">🛠️ Masuk Admin</a>
+          <a class="btn btn-soft social-ig" href="#" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn btn-soft social-fb" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn btn-soft social-tw" href="#" target="_blank" rel="noopener">Twitter/X</a>
+          <a class="btn btn-soft social-tt" href="#" target="_blank" rel="noopener">TikTok</a>
+          <a class="btn btn-soft social-yt" href="#" target="_blank" rel="noopener">YouTube</a>
         </div>
       </div>
     </div>
@@ -74,16 +102,35 @@
       <div class="footer-inner glass-panel">
         <div>© <span id="yearNow"></span> Titik Fiksi</div>
         <div style="display:flex; gap:10px;">
-          <a href="admin/">Admin</a>
+          <a href="about.html">Tentang</a>
+          <a href="works.html">Novel</a>
+          <a href="writings.html">Tulisan</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- ✅ Tombol admin mini khusus di kontak -->
+  <a class="tf-admin-mini" href="admin/" title="Masuk Admin">👤</a>
+
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/main.js"></script>
   <script>
     document.getElementById("yearNow").textContent = new Date().getFullYear();
+
+    // biar invite/recovery admin tetap bisa
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        const hash = window.location.hash || "";
+        const hasInvite = hash.includes("invite_token=");
+        const hasRecovery = hash.includes("recovery_token=");
+        const hasAccess = hash.includes("access_token=");
+
+        if (!user && (hasInvite || hasRecovery || hasAccess)) {
+          window.netlifyIdentity.open();
+        }
+      });
+    }
   </script>
 </body>
 </html>

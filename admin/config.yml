@@ -1,0 +1,115 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# ✅ Folder Media
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+# ✅ Lokalisasi & URL (PENTING untuk kestabilan login)
+locale: "id"
+site_url: "https://titikcontoh.netlify.app"
+display_url: "https://titikcontoh.netlify.app"
+
+# ✅ Konfigurasi Slug agar file rapi
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  # 1. HALAMAN BERANDA
+  - name: "home"
+    label: "Beranda"
+    files:
+      - label: "Konten Beranda"
+        name: "home_content"
+        file: "content/home/home.json"
+        format: "json"
+        fields:
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Judul Besar", name: "title", widget: "string" }
+              - { label: "Sub Judul", name: "subtitle", widget: "string" }
+              - { label: "Intro Text", name: "intro", widget: "text" }
+
+  # 2. DAFTAR NOVEL (WORKS)
+  - name: "works"
+    label: "Daftar Novel"
+    files:
+      - label: "Database Novel"
+        name: "works_list"
+        file: "content/works/works.json"
+        format: "json"
+        fields:
+          - label: "List Novel"
+            name: "works"
+            widget: "list"
+            fields:
+              - { label: "Judul Novel", name: "title", widget: "string" }
+              - { label: "Slug URL (Contoh: naga-langit)", name: "slug", widget: "string", hint: "Gunakan huruf kecil dan strip (-). Ini KUNCI untuk menghubungkan dengan Bab." }
+              - { label: "Cover Image", name: "cover", widget: "image", required: false }
+              - { label: "Genre", name: "genre", widget: "string" }
+              - { label: "Status", name: "status", widget: "select", options: ["Ongoing", "Completed", "Hiatus", "Coming Soon"] }
+              - { label: "Sinopsis", name: "synopsis", widget: "text" }
+
+  # 3. MANAJEMEN BAB (SISTEM BARU - 1 FILE PER BAB)
+  - name: "chapters"
+    label: "Manajemen Bab"
+    folder: "content/chapters"
+    create: true
+    extension: "json"
+    format: "json"
+    # ✅ Nama file otomatis: slugnovel-kodebab (contoh: naga-langit-01.json)
+    slug: "{{novel_slug}}-{{code}}"
+    fields:
+      - label: "Slug Novel (WAJIB SAMA persis dengan di menu Novel)"
+        name: "novel_slug"
+        widget: "string"
+        hint: "Contoh: jika slug novel adalah 'naga-langit', ketik 'naga-langit' di sini."
+      
+      - label: "Kode Bab (Urutan)"
+        name: "code"
+        widget: "string"
+        pattern: ['^[0-9]+$', "Hanya angka"]
+        hint: "Gunakan format 2 digit: 01, 02, 03, dst. Ini menentukan urutan."
+      
+      - label: "Judul Bab"
+        name: "title"
+        widget: "string"
+        hint: "Contoh: Pertemuan Pertama"
+
+      - label: "Tanggal Publish"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        
+      - label: "Tampilkan?"
+        name: "published"
+        widget: "boolean"
+        default: true
+
+      - label: "Isi Cerita"
+        name: "content"
+        widget: "markdown"
+
+  # 4. TULISAN / BLOG
+  - name: "writings"
+    label: "Tulisan & Blog"
+    files:
+      - label: "Database Tulisan"
+        name: "writings_list"
+        file: "content/writings/writings.json"
+        format: "json"
+        fields:
+          - label: "List Tulisan"
+            name: "writings"
+            widget: "list"
+            fields:
+              - { label: "Judul", name: "title", widget: "string" }
+              - { label: "Slug", name: "slug", widget: "string" }
+              - { label: "Kategori", name: "category", widget: "string" }
+              - { label: "Tanggal", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Isi", name: "content", widget: "markdown" }

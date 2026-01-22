@@ -6,7 +6,6 @@
   <title>Titik Fiksi | Website Resmi</title>
   <meta name="description" content="Website resmi Titik Fiksi." />
 
-  <!-- ✅ WAJIB: supaya link invite password Netlify bisa muncul -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <link rel="stylesheet" href="assets/css/themes.css" />
@@ -14,7 +13,6 @@
 </head>
 
 <body>
-
   <div class="navbar-wrap">
     <div class="container">
       <nav class="navbar glass-panel">
@@ -48,7 +46,6 @@
 
   <main class="section">
     <div class="container">
-
       <div class="hero glass-card" style="padding:18px;">
         <h1 id="hero-title" style="margin-top:0;">Titik Fiksi</h1>
         <p id="hero-subtitle" style="color:var(--muted); margin-top:8px;">Novelis • Penulis • Storyteller</p>
@@ -57,9 +54,7 @@
         <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
           <a class="btn btn-primary" href="works.html">📚 Lihat Novel</a>
           <a class="btn btn-soft" href="writings.html">✍️ Baca Tulisan</a>
-
-          <!-- ✅ Generator Dihapus dari publik -->
-          <a class="btn btn-soft" href="admin/">🛠️ Admin</a>
+          <a class="btn btn-soft" href="contact.html">📩 Kontak</a>
         </div>
 
         <div style="margin-top:16px;">
@@ -67,9 +62,7 @@
             style="width:100%; border:none; border-radius:18px; display:none; aspect-ratio:16/9;"
             allowfullscreen></iframe>
         </div>
-
       </div>
-
     </div>
   </main>
 
@@ -77,10 +70,11 @@
     <div class="container">
       <div class="footer-inner glass-panel">
         <div>© <span id="yearNow"></span> Titik Fiksi</div>
-
         <div style="display:flex; gap:10px;">
-          <!-- ✅ Generator dihapus dari footer publik -->
-          <a href="admin/">Admin</a>
+          <a href="about.html">Tentang</a>
+          <a href="works.html">Novel</a>
+          <a href="writings.html">Tulisan</a>
+          <a href="contact.html">Kontak</a>
         </div>
       </div>
     </div>
@@ -92,7 +86,7 @@
   <script>
     document.getElementById("yearNow").textContent = new Date().getFullYear();
 
-    // ✅ auto open identity modal jika klik link invite
+    // ini tetap aman disimpan (untuk invite/recovery admin)
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", (user) => {
         const hash = window.location.hash || "";
@@ -106,6 +100,5 @@
       });
     }
   </script>
-
 </body>
 </html>
