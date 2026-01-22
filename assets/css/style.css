@@ -453,3 +453,21 @@ body {
   .grid-cards { grid-template-columns: 1fr; }
   .nav-links { display: none; }
 }
+/* Tambahan untuk Tampilan Novel Profesional */
+hr.scene-break {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  margin: 40px 0;
+}
+
+blockquote {
+  border-left: 4px solid var(--brand);
+  padding-left: 16px;
+  margin: 20px 0;
+  font-style: italic;
+  color: var(--text-2);
+  background: rgba(var(--brand-rgb), 0.05);
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+}
