@@ -5,151 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager - Titik Fiksi</title>
 
-  <!-- ✅ Netlify Identity Widget (INI KUNCI LOGIN) -->
+  <!-- ✅ Netlify Identity Widget (KUNCI LOGIN) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-  <!-- Tema Admin -->
+  <!-- ✅ Tema Admin (Glass Premium) -->
   <link rel="stylesheet" href="./admin.css" />
 
-  <style>
-    /* ✅ Bar mini untuk tool admin (tidak mengganggu CMS) */
-    .tf-admin-tools {
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-      padding: 10px;
-      background: rgba(255,255,255,0.35);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(15,23,42,0.12);
-    }
-
-    .tf-admin-tools-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.55);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-    }
-
-    .tf-admin-tools-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .tf-admin-tools-title {
-      font-weight: 800;
-      font-size: 14px;
-      color: #0f172a;
-      line-height: 1.2;
-    }
-
-    .tf-admin-tools-sub {
-      font-size: 12px;
-      color: rgba(51,65,85,0.9);
-    }
-
-    .tf-admin-tools-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .tf-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,23,42,0.14);
-      background: rgba(255,255,255,0.72);
-      text-decoration: none;
-      color: #0f172a;
-      font-weight: 700;
-      font-size: 13px;
-      transition: 160ms ease;
-      cursor: pointer;
-    }
-
-    .tf-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .tf-btn-primary {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      border-color: rgba(255,255,255,0.35);
-      color: #fff;
-    }
-
-    /* sembunyikan tools sebelum login supaya terasa privat */
-    .tf-hide {
-      display: none !important;
-    }
-  </style>
+  <!-- ✅ Preview style (untuk panel preview di kanan) -->
+  <link rel="stylesheet" href="./preview.css" />
 </head>
 
 <body>
-  <!-- ✅ Tool bar hanya untuk admin -->
-  <div class="tf-admin-tools tf-hide" id="tfAdminTools">
-    <div class="tf-admin-tools-inner">
-      <div class="tf-admin-tools-left">
-        <div class="tf-admin-tools-title">🛠️ Admin Titik Fiksi</div>
-        <div class="tf-admin-tools-sub">Akses cepat untuk alat penulis</div>
-      </div>
 
-      <div class="tf-admin-tools-right">
-        <!-- ✅ Generator pindah ke dalam Admin -->
-        <a class="tf-btn tf-btn-primary" href="/tools/generator.html" target="_blank" rel="noopener">
-          ⚙️ Generator
-        </a>
+  <!-- ✅ Overlay (muncul saat panel terbuka) -->
+  <div id="tfOverlay" class="tf-overlay tf-hide"></div>
 
-        <!-- ✅ Tombol buka website -->
-        <a class="tf-btn" href="/" target="_blank" rel="noopener">
-          🌐 Buka Website
-        </a>
+  <!-- ✅ Panel tools admin -->
+  <div id="tfPanel" class="tf-panel tf-hide" aria-hidden="true">
+    <button id="tfClosePanel" class="tf-panel-close" type="button" title="Tutup">✕</button>
 
-        <!-- ✅ Logout -->
-        <button class="tf-btn" type="button" id="tfLogoutBtn">
-          🚪 Logout
-        </button>
-      </div>
+    <h4>🛠️ Admin Tools</h4>
+    <p>Akses cepat untuk penulis</p>
+
+    <div class="tf-actions">
+      <a class="tf-btn tf-btn-primary" href="/tools/generator.html" target="_blank" rel="noopener">
+        ⚙️ Generator
+      </a>
+
+      <a class="tf-btn" href="/" target="_blank" rel="noopener">
+        🌐 Buka Website
+      </a>
+
+      <button class="tf-btn tf-btn-danger" type="button" id="tfLogoutBtn">
+        🚪 Logout
+      </button>
     </div>
   </div>
+
+  <!-- ✅ Tombol floating -->
+  <button id="tfFab" class="tf-fab tf-hide" type="button" title="Admin Tools">
+    <span class="tf-fab-icon">⚙️</span>
+  </button>
 
   <!-- ✅ Wadah CMS -->
   <div id="nc-root"></div>
 
-  <!-- ✅ Decap CMS versi lokal (anti error Telkomsel/CDN) -->
+  <!-- ✅ Decap CMS versi lokal (STABIL) -->
   <script src="./vendor/decap-cms.js"></script>
 
   <script>
-    // ✅ Login tetap stabil seperti versi Anda sebelumnya
+    function tfOpenPanel() {
+      const panel = document.getElementById("tfPanel");
+      const overlay = document.getElementById("tfOverlay");
+      if (!panel || !overlay) return;
+
+      panel.classList.remove("tf-hide");
+      overlay.classList.remove("tf-hide");
+      panel.setAttribute("aria-hidden", "false");
+    }
+
+    function tfClosePanel() {
+      const panel = document.getElementById("tfPanel");
+      const overlay = document.getElementById("tfOverlay");
+      if (!panel || !overlay) return;
+
+      panel.classList.add("tf-hide");
+      overlay.classList.add("tf-hide");
+      panel.setAttribute("aria-hidden", "true");
+    }
+
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
-        const tools = document.getElementById("tfAdminTools");
+        const fab = document.getElementById("tfFab");
         const logoutBtn = document.getElementById("tfLogoutBtn");
+        const closeBtn = document.getElementById("tfClosePanel");
+        const overlay = document.getElementById("tfOverlay");
 
-        // tampilkan toolbar hanya jika user sudah login
-        if (user && tools) {
-          tools.classList.remove("tf-hide");
+        if (user && fab) {
+          fab.classList.remove("tf-hide");
         }
 
-        // jika belum login, setelah login balik ke /admin/
         if (!user) {
           window.netlifyIdentity.on("login", () => {
             document.location.href = "/admin/";
           });
         }
 
-        // tombol logout
+        if (fab) {
+          fab.addEventListener("click", () => tfOpenPanel());
+        }
+
+        if (closeBtn) closeBtn.addEventListener("click", () => tfClosePanel());
+        if (overlay) overlay.addEventListener("click", () => tfClosePanel());
+
         if (logoutBtn) {
           logoutBtn.addEventListener("click", () => {
             window.netlifyIdentity.logout();
@@ -158,6 +106,10 @@
         }
       });
     }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") tfClosePanel();
+    });
   </script>
 
   <noscript>Aktifkan JavaScript untuk membuka Admin.</noscript>
