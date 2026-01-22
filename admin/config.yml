@@ -2,42 +2,75 @@ backend:
   name: git-gateway
   branch: main
 
-# ✅ Folder Media
+# ✅ Tempat penyimpanan gambar upload
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
-# ✅ Lokalisasi & URL (PENTING untuk kestabilan login)
-locale: "id"
+# ✅ URL Website (PENTING AGAR LOGIN TIDAK BLANK)
 site_url: "https://titikcontoh.netlify.app"
 display_url: "https://titikcontoh.netlify.app"
+locale: "id"
 
-# ✅ Konfigurasi Slug agar file rapi
 slug:
   encoding: "ascii"
   clean_accents: true
   sanitize_replacement: "-"
 
 collections:
-  # 1. HALAMAN BERANDA
-  - name: "home"
-    label: "Beranda"
+  # ============================================
+  # 1. PENGATURAN & BERANDA
+  # ============================================
+  - name: "settings_collection"
+    label: "⚙️ Pengaturan & Beranda"
     files:
-      - label: "Konten Beranda"
-        name: "home_content"
+      - label: "Halaman Beranda"
+        name: "home"
         file: "content/home/home.json"
         format: "json"
         fields:
-          - label: "Hero Section"
+          - label: "HERO SECTION"
             name: "hero"
             widget: "object"
             fields:
               - { label: "Judul Besar", name: "title", widget: "string" }
-              - { label: "Sub Judul", name: "subtitle", widget: "string" }
-              - { label: "Intro Text", name: "intro", widget: "text" }
+              - { label: "Sub Judul", name: "subtitle", widget: "string", required: false }
+              - { label: "Intro Text", name: "intro", widget: "text", required: false }
+              - { label: "Youtube URL", name: "youtube_embed", widget: "string", required: false }
+          
+          - label: "LINK PLATFORM (Wattpad, dll)"
+            name: "platforms"
+            widget: "object"
+            fields:
+              - { label: "Wattpad", name: "wattpad", widget: "string", required: false }
+              - { label: "Karyakarsa", name: "karyakarsa", widget: "string", required: false }
+              - { label: "GoodNovel", name: "goodnovel", widget: "string", required: false }
+              - { label: "Fizzo", name: "fizzo", widget: "string", required: false }
 
+          - label: "SOSIAL MEDIA"
+            name: "socials"
+            widget: "object"
+            fields:
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "Facebook", name: "facebook", widget: "string", required: false }
+              - { label: "Twitter", name: "twitter", widget: "string", required: false }
+              - { label: "TikTok", name: "tiktok", widget: "string", required: false }
+              - { label: "YouTube", name: "youtube", widget: "string", required: false }
+
+      - label: "Pengaturan Umum (Logo & Nama)"
+        name: "settings"
+        file: "content/settings/settings_general.json"
+        format: "json"
+        fields:
+          - { label: "Nama Website", name: "site_title", widget: "string" }
+          - { label: "Deskripsi SEO", name: "meta_description", widget: "text", required: false }
+          - { label: "Logo Website", name: "brand_logo", widget: "image", required: false, hint: "Upload logo di sini" }
+          - { label: "Favicon", name: "brand_favicon", widget: "image", required: false }
+
+  # ============================================
   # 2. DAFTAR NOVEL (WORKS)
+  # ============================================
   - name: "works"
-    label: "Daftar Novel"
+    label: "📚 Daftar Novel"
     files:
       - label: "Database Novel"
         name: "works_list"
@@ -47,57 +80,75 @@ collections:
           - label: "List Novel"
             name: "works"
             widget: "list"
+            summary: "{{fields.title}}"
             fields:
               - { label: "Judul Novel", name: "title", widget: "string" }
-              - { label: "Slug URL (Contoh: naga-langit)", name: "slug", widget: "string", hint: "Gunakan huruf kecil dan strip (-). Ini KUNCI untuk menghubungkan dengan Bab." }
-              - { label: "Cover Image", name: "cover", widget: "image", required: false }
+              - { label: "Slug URL", name: "slug", widget: "string", hint: "Huruf kecil & strip (contoh: naga-terbang)" }
+              - { label: "Cover Gambar", name: "cover", widget: "image", required: false }
               - { label: "Genre", name: "genre", widget: "string" }
               - { label: "Status", name: "status", widget: "select", options: ["Ongoing", "Completed", "Hiatus", "Coming Soon"] }
               - { label: "Sinopsis", name: "synopsis", widget: "text" }
 
-  # 3. MANAJEMEN BAB (SISTEM BARU - 1 FILE PER BAB)
+  # ============================================
+  # 3. MANAJEMEN BAB (CHAPTERS) - SYSTEM 1 FILE
+  # ============================================
   - name: "chapters"
-    label: "Manajemen Bab"
+    label: "📖 Manajemen Bab"
     folder: "content/chapters"
     create: true
     extension: "json"
     format: "json"
-    # ✅ Nama file otomatis: slugnovel-kodebab (contoh: naga-langit-01.json)
     slug: "{{novel_slug}}-{{code}}"
+    summary: "{{novel_slug}} - Ch.{{code}}: {{title}}"
     fields:
-      - label: "Slug Novel (WAJIB SAMA persis dengan di menu Novel)"
+      - label: "Slug Novel (WAJIB SAMA dengan Daftar Novel)"
         name: "novel_slug"
         widget: "string"
-        hint: "Contoh: jika slug novel adalah 'naga-langit', ketik 'naga-langit' di sini."
+        hint: "Contoh: naga-terbang"
       
-      - label: "Kode Bab (Urutan)"
+      - label: "Nomor Bab (01, 02...)"
         name: "code"
         widget: "string"
         pattern: ['^[0-9]+$', "Hanya angka"]
-        hint: "Gunakan format 2 digit: 01, 02, 03, dst. Ini menentukan urutan."
       
       - label: "Judul Bab"
         name: "title"
         widget: "string"
-        hint: "Contoh: Pertemuan Pertama"
-
+      
       - label: "Tanggal Publish"
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD"
-        
+      
       - label: "Tampilkan?"
         name: "published"
         widget: "boolean"
         default: true
-
+      
       - label: "Isi Cerita"
         name: "content"
         widget: "markdown"
 
-  # 4. TULISAN / BLOG
+      # 🔥 FITUR LINK BERBAYAR / EXTERNAL 🔥
+      - label: "Link Baca Lanjutan (Opsional)"
+        name: "external_links"
+        widget: "object"
+        collapsed: false
+        hint: "Isi ini jika bab selanjutnya berbayar di platform lain"
+        fields:
+          - { label: "Link Karyakarsa", name: "karyakarsa", widget: "string", required: false }
+          - { label: "Link Wattpad", name: "wattpad", widget: "string", required: false }
+          - { label: "Link GoodNovel", name: "goodnovel", widget: "string", required: false }
+          - { label: "Link KBM App", name: "kbm", widget: "string", required: false }
+          - { label: "Link MaxNovel", name: "maxnovel", widget: "string", required: false }
+          - { label: "Link Custom", name: "custom_url", widget: "string", required: false }
+          - { label: "Teks Tombol Custom", name: "custom_text", widget: "string", required: false }
+
+  # ============================================
+  # 4. TULISAN (WRITINGS)
+  # ============================================
   - name: "writings"
-    label: "Tulisan & Blog"
+    label: "✍️ Tulisan & Blog"
     files:
       - label: "Database Tulisan"
         name: "writings_list"
@@ -110,6 +161,6 @@ collections:
             fields:
               - { label: "Judul", name: "title", widget: "string" }
               - { label: "Slug", name: "slug", widget: "string" }
-              - { label: "Kategori", name: "category", widget: "string" }
-              - { label: "Tanggal", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-              - { label: "Isi", name: "content", widget: "markdown" }
+              - { label: "Kategori", name: "category", widget: "string", required: false }
+              - { label: "Tanggal", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: false }
+              - { label: "Isi Tulisan", name: "content", widget: "markdown", required: false }

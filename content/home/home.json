@@ -1,23 +1,19 @@
 {
   "hero": {
-    "title": "Titik Fiksi",
-    "subtitle": "Novelis • Penulis • Storyteller",
-    "intro": "Selamat datang di Titik Fiksi. Di sini Anda bisa membaca novel, menemukan tulisan, dan mengikuti update terbaru.",
-    "youtube_embed": ""
+    "title": "Titik Fiksi Universe",
+    "subtitle": "Tempat Imajinasi Menjadi Nyata",
+    "intro": "Selamat datang di website resmi Titik Fiksi.",
+    "youtube_embed": "https://www.youtube.com/watch?v=LXb3EKWsInQ"
   },
   "platforms": {
-    "wattpad": "",
-    "goodnovel": "",
-    "kbm": "",
-    "maxnovel": "",
-    "fizzo": "",
-    "karyakarsa": ""
+    "wattpad": "https://wattpad.com",
+    "karyakarsa": "https://karyakarsa.com"
   },
   "socials": {
-    "instagram": "",
-    "facebook": "",
-    "twitter": "",
-    "tiktok": "",
-    "youtube": ""
+    "instagram": "https://instagram.com/titikfiksi",
+    "facebook": "https://facebook.com/titikfiksi",
+    "twitter": "https://twitter.com/titikfiksi",
+    "tiktok": "https://tiktok.com/@titikfiksi",
+    "youtube": "https://youtube.com/@titikfiksi"
   }
 }

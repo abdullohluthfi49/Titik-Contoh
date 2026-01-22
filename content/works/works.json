@@ -1,20 +1,12 @@
 {
   "works": [
     {
-      "title": "Contoh Novel Pertama",
-      "slug": "contoh-novel-pertama",
-      "cover": "",
-      "genre": "Fantasi",
+      "title": "System Raja Keberuntungan",
+      "slug": "system-raja-keberuntungan",
+      "cover": "assets/images/uploads/placeholder.png",
+      "genre": "Fantasi / System",
       "status": "Ongoing",
-      "synopsis": "Ini contoh sinopsis singkat. Silakan ganti dengan sinopsis novel Anda."
-    },
-    {
-      "title": "Contoh Novel Kedua",
-      "slug": "contoh-novel-kedua",
-      "cover": "",
-      "genre": "Romance",
-      "status": "Coming Soon",
-      "synopsis": "Silakan isi sinopsis novel Anda di sini."
+      "synopsis": "Di dunia di mana keberuntungan adalah segalanya, seorang pemuda mendapatkan sistem yang memanipulasi takdir."
     }
   ]
 }

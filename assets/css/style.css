@@ -470,4 +470,66 @@ blockquote {
   background: rgba(var(--brand-rgb), 0.05);
   padding: 10px 16px;
   border-radius: 0 8px 8px 0;
+
+}/* =========================================
+   FINAL POLISH: BUTTONS & CARDS EFFECTS
+   ========================================= */
+
+/* 1. KARTU NOVEL POPUP (Efek Timbul & Bersinar) */
+.card-work {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  text-decoration: none;
+  color: var(--text-1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efek membal */
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
 }
+
+.card-work:hover {
+  transform: translateY(-10px) scale(1.02); /* Naik ke atas */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); /* Bayangan lembut */
+  border-color: var(--brand); /* Garis tepi menyala */
+  background: #fff;
+  z-index: 10;
+}
+
+.card-work img {
+  transition: transform 0.5s ease;
+}
+
+.card-work:hover img {
+  transform: scale(1.05); /* Gambar zoom sedikit */
+}
+
+/* 2. SOSIAL MEDIA BERWARNA (Contact) */
+.social-btn {
+  border-width: 2px !important; /* Garis lebih tebal */
+  font-weight: 700 !important;
+  transition: 0.2s !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Instagram (Pink-Ungu) */
+.social-ig { border-color: #E1306C; color: #E1306C; }
+.social-ig:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; border-color: transparent; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4); }
+
+/* Facebook (Biru) */
+.social-fb { border-color: #1877F2; color: #1877F2; }
+.social-fb:hover { background: #1877F2; color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4); }
+
+/* Twitter/X (Hitam) */
+.social-tw { border-color: #000; color: #000; }
+.social-tw:hover { background: #000; color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0, 0.4); }
+
+/* TikTok (Hitam Teal) */
+.social-tt { border-color: #000; color: #000; }
+.social-tt:hover { background: linear-gradient(45deg, #000 60%, #25F4EE); color: white; border-color: transparent; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0, 0.4); }
+
+/* YouTube (Merah) */
+.social-yt { border-color: #FF0000; color: #FF0000; }
+.social-yt:hover { background: #FF0000; color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4); }
