@@ -10,9 +10,120 @@
 
   <!-- Tema Admin -->
   <link rel="stylesheet" href="./admin.css" />
+
+  <style>
+    /* ✅ Bar mini untuk tool admin (tidak mengganggu CMS) */
+    .tf-admin-tools {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      padding: 10px;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(15,23,42,0.12);
+    }
+
+    .tf-admin-tools-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(15,23,42,0.10);
+      background: rgba(255,255,255,0.55);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    .tf-admin-tools-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tf-admin-tools-title {
+      font-weight: 800;
+      font-size: 14px;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .tf-admin-tools-sub {
+      font-size: 12px;
+      color: rgba(51,65,85,0.9);
+    }
+
+    .tf-admin-tools-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,0.14);
+      background: rgba(255,255,255,0.72);
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 13px;
+      transition: 160ms ease;
+      cursor: pointer;
+    }
+
+    .tf-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .tf-btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-color: rgba(255,255,255,0.35);
+      color: #fff;
+    }
+
+    /* sembunyikan tools sebelum login supaya terasa privat */
+    .tf-hide {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- ✅ Tool bar hanya untuk admin -->
+  <div class="tf-admin-tools tf-hide" id="tfAdminTools">
+    <div class="tf-admin-tools-inner">
+      <div class="tf-admin-tools-left">
+        <div class="tf-admin-tools-title">🛠️ Admin Titik Fiksi</div>
+        <div class="tf-admin-tools-sub">Akses cepat untuk alat penulis</div>
+      </div>
+
+      <div class="tf-admin-tools-right">
+        <!-- ✅ Generator pindah ke dalam Admin -->
+        <a class="tf-btn tf-btn-primary" href="/tools/generator.html" target="_blank" rel="noopener">
+          ⚙️ Generator
+        </a>
+
+        <!-- ✅ Tombol buka website -->
+        <a class="tf-btn" href="/" target="_blank" rel="noopener">
+          🌐 Buka Website
+        </a>
+
+        <!-- ✅ Logout -->
+        <button class="tf-btn" type="button" id="tfLogoutBtn">
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ✅ Wadah CMS -->
   <div id="nc-root"></div>
 
@@ -20,13 +131,29 @@
   <script src="./vendor/decap-cms.js"></script>
 
   <script>
-    // ✅ Jika sudah login, tetap di /admin/
-    // Jika belum login dan klik login → setelah login balik ke /admin/
+    // ✅ Login tetap stabil seperti versi Anda sebelumnya
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
+        const tools = document.getElementById("tfAdminTools");
+        const logoutBtn = document.getElementById("tfLogoutBtn");
+
+        // tampilkan toolbar hanya jika user sudah login
+        if (user && tools) {
+          tools.classList.remove("tf-hide");
+        }
+
+        // jika belum login, setelah login balik ke /admin/
         if (!user) {
           window.netlifyIdentity.on("login", () => {
             document.location.href = "/admin/";
+          });
+        }
+
+        // tombol logout
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", () => {
+            window.netlifyIdentity.logout();
+            window.location.reload();
           });
         }
       });

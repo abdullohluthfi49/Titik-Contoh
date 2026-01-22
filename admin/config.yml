@@ -11,6 +11,9 @@ site_url: "https://titikcontoh.netlify.app"
 locale: "id"
 
 collections:
+  # =========================
+  # HOME
+  # =========================
   - name: "home"
     label: "🏠 Beranda"
     files:
@@ -49,6 +52,9 @@ collections:
               - { label: "TikTok", name: "tiktok", widget: "string", required: false }
               - { label: "YouTube", name: "youtube", widget: "string", required: false }
 
+  # =========================
+  # WORKS (NOVEL)
+  # =========================
   - name: "works"
     label: "📚 Novel"
     files:
@@ -69,7 +75,6 @@ collections:
                 name: "cover"
                 widget: "image"
                 required: false
-                hint: "Upload cover novel. Jika kosong → cover default."
 
               - { label: "Genre", name: "genre", widget: "string", required: false }
 
@@ -81,6 +86,60 @@ collections:
 
               - { label: "Sinopsis", name: "synopsis", widget: "text", required: false }
 
+  # =========================
+  # CHAPTERS (BAB NOVEL) — ✅ INI MENU BARU
+  # =========================
+  - name: "chapters"
+    label: "📖 Bab Novel"
+    label_singular: "Bab Novel"
+    folder: "content/chapters"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    slug: "{{slug}}"
+    summary: "{{filename}}"
+    fields:
+      - label: "Slug Novel (harus sama dengan slug di menu Novel)"
+        name: "novel_slug"
+        widget: "string"
+        hint: "Contoh: naga-di-langit"
+
+      - label: "Daftar Bab"
+        name: "chapters"
+        widget: "list"
+        summary: "Bab {{fields.code}} • {{fields.title}}"
+        fields:
+          - label: "Kode Bab"
+            name: "code"
+            widget: "string"
+            hint: "Wajib format 2 digit: 01, 02, 03"
+
+          - label: "Judul Bab"
+            name: "title"
+            widget: "string"
+
+          - label: "Publish?"
+            name: "published"
+            widget: "boolean"
+            default: true
+            hint: "Jika OFF, bab tidak tampil ke pembaca."
+
+          - label: "Tanggal Rilis"
+            name: "date"
+            widget: "datetime"
+            format: "YYYY-MM-DD"
+            time_format: false
+            required: false
+
+          - label: "Isi Bab"
+            name: "content"
+            widget: "text"
+            hint: "Tulis isi bab. Enter akan jadi paragraf."
+
+  # =========================
+  # WRITINGS
+  # =========================
   - name: "writings"
     label: "✍️ Tulisan"
     files:
@@ -113,6 +172,9 @@ collections:
 
               - { label: "Isi Tulisan", name: "content", widget: "text" }
 
+  # =========================
+  # SETTINGS
+  # =========================
   - name: "settings"
     label: "⚙️ Pengaturan"
     files:
@@ -128,11 +190,8 @@ collections:
             name: "brand_logo"
             widget: "image"
             required: false
-            hint: "Logo ini akan tampil otomatis di semua halaman."
 
           - label: "Favicon (Upload)"
             name: "brand_favicon"
             widget: "image"
             required: false
-            hint: "Ikon kecil tab browser. Upload PNG/JPG."
-

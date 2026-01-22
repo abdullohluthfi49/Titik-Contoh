@@ -380,6 +380,69 @@ body {
 
 .footer a { color: var(--link); text-decoration: none; }
 
+/* =========================================================
+   ✅ READER MODE — PREMIUM (UNTUK chapter.html)
+   ========================================================= */
+
+/* kotak bacaan dibikin lebih sempit agar nyaman dibaca */
+#chapter-box {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* judul bab lebih "novel" */
+#chapter-title {
+  letter-spacing: -0.4px;
+}
+
+/* isi cerita (paragraf) */
+#chapter-content {
+  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  font-size: 17px;
+  line-height: 2;
+  color: var(--text-2);
+}
+
+/* paragraf dibuat napas */
+#chapter-content p {
+  margin: 0 0 14px;
+}
+
+/* blok quote kalau suatu saat Anda pakai */
+#chapter-content blockquote {
+  margin: 14px 0;
+  padding: 12px 14px;
+  border-left: 4px solid rgba(59,130,246,0.45);
+  background: rgba(255,255,255,0.55);
+  border-radius: 14px;
+}
+
+/* tombol navigasi bab biar terlihat premium */
+#btn-prev, #btn-next, #btn-back-novel {
+  font-weight: 700;
+}
+
+/* daftar bab di novel.html dibuat lebih rapi */
+#chapters-list .glass-card {
+  transition: var(--transition);
+}
+
+#chapters-list .glass-card:hover {
+  transform: translateY(-1px);
+}
+
+/* responsive reader */
+@media (max-width: 620px) {
+  #chapter-box {
+    max-width: 100%;
+  }
+
+  #chapter-content {
+    font-size: 16px;
+    line-height: 1.95;
+  }
+}
+
 /* Responsive */
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; }

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tentang | Titik Fiksi</title>
+  <title>Baca Bab | Titik Fiksi</title>
+  <meta name="description" content="Baca bab novel di Titik Fiksi." />
 
   <link rel="stylesheet" href="assets/css/themes.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -19,15 +20,15 @@
           </div>
           <div class="brand-title">
             <strong>Titik Fiksi</strong>
-            <span>Tentang Penulis</span>
+            <span>Baca Bab</span>
           </div>
         </a>
 
         <div class="nav-links">
           <a href="index.html">Beranda</a>
-          <a href="works.html">Novel</a>
+          <a href="works.html" class="active">Novel</a>
           <a href="writings.html">Tulisan</a>
-          <a class="active" href="about.html">Tentang</a>
+          <a href="about.html">Tentang</a>
           <a href="contact.html">Kontak</a>
         </div>
 
@@ -43,32 +44,32 @@
 
   <main class="section">
     <div class="container">
-      <div class="section-title">
-        <h2>🧑‍💼 Tentang Saya</h2>
-        <p>Profil singkat, fokus karya, dan arah cerita.</p>
-      </div>
 
-      <div class="glass-card" style="padding:18px; line-height:1.8;">
-        <p>
-          Halo! Selamat datang di <b>Titik Fiksi</b>.
-          Website ini adalah rumah bagi karya-karya saya: novel, cerpen, tulisan, dan catatan proses kreatif.
-        </p>
+      <div id="chapter-error" class="glass-card" style="padding:16px; display:none;"></div>
 
-        <p>
-          Saya fokus pada genre <b>fantasi</b> dan cerita yang membangun dunia (world-building),
-          namun juga terbuka untuk eksplorasi tema lain seperti drama, refleksi, dan cerita pendek.
-        </p>
+      <section id="chapter-box" class="glass-card" style="padding:18px; display:none;">
+        <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:end;">
+          <div>
+            <div id="chapter-top" style="color:var(--muted); font-size:14px;"></div>
+            <h1 id="chapter-title" style="margin:6px 0 0;"></h1>
+          </div>
 
-        <p>
-          Jika Anda ingin mengikuti update novel terbaru, silakan cek menu <b>Novel</b>.
-          Untuk catatan penulis dan tulisan lainnya, bisa dibuka di menu <b>Tulisan</b>.
-        </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a id="btn-back-novel" class="btn btn-soft" href="#">⬅️ Detail Novel</a>
+            <a id="btn-next" class="btn btn-primary" href="#">Bab Selanjutnya ➜</a>
+          </div>
+        </div>
+
+        <hr style="margin:14px 0; border:0; height:1px; background:rgba(15,23,42,0.10);" />
+
+        <article id="chapter-content" style="line-height:1.95; color:var(--text-2); font-size:16px; white-space:pre-wrap;"></article>
 
         <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn btn-primary" href="works.html">📚 Lihat Novel</a>
-          <a class="btn btn-soft" href="writings.html">✍️ Baca Tulisan</a>
+          <a id="btn-prev" class="btn btn-soft" href="#">⬅️ Bab Sebelumnya</a>
+          <a class="btn btn-soft" href="works.html">🏠 Daftar Novel</a>
         </div>
-      </div>
+      </section>
+
     </div>
   </main>
 
@@ -85,6 +86,7 @@
 
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/main.js"></script>
+
   <script>
     document.getElementById("yearNow").textContent = new Date().getFullYear();
   </script>
