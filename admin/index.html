@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager - Titik Fiksi</title>
+
+  <!-- ✅ Netlify Identity Widget (INI KUNCI LOGIN) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Tema Admin -->
+  <link rel="stylesheet" href="./admin.css" />
+</head>
+
+<body>
+  <!-- ✅ Wadah CMS -->
+  <div id="nc-root"></div>
+
+  <!-- ✅ Decap CMS versi lokal (anti error Telkomsel/CDN) -->
+  <script src="./vendor/decap-cms.js"></script>
+
+  <script>
+    // ✅ Jika sudah login, tetap di /admin/
+    // Jika belum login dan klik login → setelah login balik ke /admin/
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+
+  <noscript>Aktifkan JavaScript untuk membuka Admin.</noscript>
+</body>
+</html>
